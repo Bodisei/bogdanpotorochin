@@ -35,9 +35,64 @@ namespace Kyrcu
                         countWord++;
                 }
 
-                for (int i = 0; i < countWord; i++)
+                for (int i = 0; i < countWord; )
                 {
-                    sw.WriteLine(answer[i]);
+                    int index = 0, suma = 0;
+
+                    if (answer[i].Length > n)
+                    {
+                        for (int z = 0; z < answer[i].Length; z++)
+                        {
+                            suma++;
+
+                            sw.Write(answer[i][z]);
+
+                            if (suma % n == 0)
+                            {
+                                suma = 0;
+                                sw.Write(Environment.NewLine);
+                            }
+                        }
+
+                        if (i < countWord - 1)
+                        {
+                            i++;
+                        }
+                        else
+                        {
+                            i++;
+                            break;
+                        }
+
+                        index = 1;
+                    }
+
+                    while (suma + answer[i].Length < n)
+                    {
+                        suma += answer[i].Length;
+                        if(index != 0)
+                        {
+                            sw.Write(" " + answer[i]);
+                            suma += 1;
+                        }
+                        else
+                            sw.Write(answer[i]);
+
+                        index++;
+                        if (i < countWord - 1)
+                        {
+                            i++;
+                        }
+                        else
+                        {
+                            i++;
+                            break;
+                        }
+                      
+                        
+                    }
+
+                    sw.Write(Environment.NewLine);
                 }
             }
         }
