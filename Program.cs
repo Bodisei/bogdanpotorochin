@@ -39,6 +39,8 @@ namespace Kyrcu
                 {
                     int index = 0, suma = 0;
 
+                    bool check = false;
+
                     if (answer[i].Length > n)
                     {
                         for (int z = 0; z < answer[i].Length; z++)
@@ -54,6 +56,8 @@ namespace Kyrcu
                             }
                         }
 
+                        check = true;
+
                         if (i < countWord - 1)
                         {
                             i++;
@@ -67,16 +71,13 @@ namespace Kyrcu
                         index = 1;
                     }
 
-                    while (suma + answer[i].Length < n)
+                    while (suma + answer[i].Length <= n)
                     {
                         suma += answer[i].Length;
                         if(index != 0)
                         {
-                            sw.Write(" " + answer[i]);
                             suma += 1;
                         }
-                        else
-                            sw.Write(answer[i]);
 
                         index++;
                         if (i < countWord - 1)
@@ -89,7 +90,53 @@ namespace Kyrcu
                             break;
                         }
                       
-                        
+                     
+                       
+                    }
+
+
+                    int probely = n - suma;
+                    if (probely == 0)
+                    {
+                        for (int z = 0; z < index; z++)
+                        {
+                            if (z != 0)
+                            {
+                                sw.Write(" " + answer[i - index + z]);
+                            }
+                            else
+                                sw.Write(answer[i - index + z]);
+
+                        }
+                    }
+                    else 
+                    {
+                        int addProbely = probely / (index - 1);
+
+                        for (int z = 0; z < index; z++)
+                        {
+                            if (z != 0)
+                            {
+                                if (z != index - 1)
+                                {
+                                    for (int y = 0; y < addProbely; y++)
+                                    {
+                                        sw.Write(" ");
+                                    }
+                                }
+                                else 
+                                {
+                                    for (int y = 0; y < addProbely + probely % (index - 1); y++)
+                                    {
+                                        sw.Write(" ");
+                                    }
+                                }
+                                sw.Write(answer[i - index + z]);
+                            }
+                            else
+                                sw.Write(answer[i - index + z]);
+
+                        }
                     }
 
                     sw.Write(Environment.NewLine);
